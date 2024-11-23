@@ -1,63 +1,17 @@
-import express from 'express';
+// Importa o framework Express, que facilita a criação e gerenciamento de servidores HTTP em Node.js.
+import express from "express";
 
-const posts = [
-    {
-        id: 1,
-        titulo: "Gato Millie em um dia ensolarado",
-        imagem: "https://placecats.com/millie/300/150"
-    },
+// Importa as rotas definidas no arquivo postsRoutes.js, que será responsável por gerenciar as rotas da aplicação.
+import routes from "./src/routes/postsRoutes.js";
 
-    {
-        id: 2,
-        titulo: "Millie relaxando na janela",
-        imagem: "https://placecats.com/millie/250/150"
-    },
-
-    {
-        id: 3,
-        titulo: "Millie explorando a caixa de papelão",
-        imagem: "https://placecats.com/millie/500/150"
-    },
-
-    {
-        id: 4,
-        titulo: "Millie fazendo uma cara fofa",
-        imagem: "https://placecats.com/millie/200/150"
-    },
-
-    {
-        id: 5,
-        titulo: "Millie brincando com um novelo de lã",
-        imagem: "https://placecats.com/millie/300/150"
-    },
-
-    {
-        id: 6,
-        titulo: "Millie espreguiçando no sol da manhã",
-        imagem: "https://placecats.com/millie/320/150"
-    }
-];
-
-
+// Cria uma instância do Express, que é o servidor principal da aplicação.
 const app = express();
 
-app.use(express.json());
+// Chama a função `routes` passando a instância do servidor `app` para registrar as rotas na aplicação.
+routes(app);
 
+// Inicia o servidor na porta 3000 e define uma função de callback para ser executada quando o servidor estiver pronto.
 app.listen(3000, () => {
-    console.log('servidor escutando...');
-});
-
-app.get('/posts', (req, res) => {
-        res.status(200).json(posts);
-});
-
-function buscaarPostPorID(id) {
-    return posts.findIndex((post)  => {
-        return post.id === Number(id)
-    })
-}
-
-app.get('/posts/:id', (req, res) => {
-    const index = buscaarPostPorID(req.params.id    )
-        res.status(200).json(posts[index]);
+    // Exibe no console uma mensagem indicando que o servidor está em execução.
+    console.log("Servidor escutando...");
 });
